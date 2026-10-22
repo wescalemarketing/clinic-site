@@ -1,0 +1,14 @@
+<!-- Paste this ONE block into the GHL Custom JS/HTML element. Never edit the site in GHL again. -->
+<div id="kc-site">Loading…</div>
+<script>
+(async()=>{
+  const url='https://wescalemarketing.github.io/clinic-site/index.html?v='+Date.now();
+  const html=await fetch(url,{cache:'no-store'}).then(r=>r.text());
+  const host=document.getElementById('kc-site');
+  const tpl=document.createElement('template');tpl.innerHTML=html;
+  tpl.content.querySelectorAll('title,meta').forEach(n=>n.remove());
+  const scripts=[...tpl.content.querySelectorAll('script')];scripts.forEach(s=>s.remove());
+  host.replaceChildren(tpl.content);
+  for(const s of scripts){const n=document.createElement('script');n.textContent=s.textContent;document.body.appendChild(n);}
+})();
+</script>
